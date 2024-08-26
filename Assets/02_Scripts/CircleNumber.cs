@@ -13,14 +13,14 @@ public class CircleNumber : MonoBehaviour, IPointerDownHandler
         numText = GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    void OnEnable()
+    public void AssignNumber(int randomNum)
     {
-        number = Random.Range(0, 71);
+        number = randomNum;
         numText.text = number.ToString();
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-
+        SlotLocation.Instance.Push(this.gameObject,number);
     }
 }
