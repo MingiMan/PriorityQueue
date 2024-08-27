@@ -7,6 +7,7 @@ public class CircleNumber : MonoBehaviour, IPointerDownHandler
 {
     TextMeshProUGUI numText;
     int number;
+    bool IsLock;
 
     void Awake()
     {
@@ -21,6 +22,11 @@ public class CircleNumber : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        SlotLocation.Instance.Push(this.gameObject,number);
+        if(!IsLock)
+        {
+            SlotLocation.Instance.Push(this.gameObject,number);
+            CreateCircle.DecreaseCount();
+            IsLock = true;
+        }
     }
 }

@@ -5,10 +5,10 @@ using System.Collections.Generic;
 public class CreateCircle : MonoBehaviour
 {
     const int maxCount = 5;
-    int currentCount;
+    static int currentCount;
     GameObject circle;
     GameObject parent;
-    HashSet<int> numbers = new HashSet<int>(); // 중복숫자제거
+    HashSet<int> numbers = new HashSet<int>();
 
     private void Awake()
     {
@@ -16,14 +16,15 @@ public class CreateCircle : MonoBehaviour
         circle = Resources.Load<GameObject>("Number");
     }
 
-    private void Start()
+
+    private void Update()
     {
-        Cricle();
+        Cricle();    
     }
 
     private void Cricle()
     {
-        while (currentCount < maxCount)
+        if (currentCount < maxCount && SlotLocation.Instance.Heap.Count <= 7)
         {
             GameObject obj = Instantiate(circle);
             obj.name = $"Circle_{currentCount}";
@@ -34,6 +35,11 @@ public class CreateCircle : MonoBehaviour
             obj.GetComponent<CircleNumber>().AssignNumber(randomNum);
             currentCount++;
         }
+    }
+
+    public static void DecreaseCount()
+    {
+        currentCount--;
     }
 
     int GetUniqueRandomNumber()
